@@ -35,9 +35,17 @@ public class CreateActivity extends AppCompatActivity {
                 AlertDialog dialog = new AlertDialog.Builder(getActivity()).create();
                 dialog.setTitle("Usuário Adicionado!");
                 dialog.setMessage("Nome: "+p.getNome()+"\nIdade: "+p.getIdade());
-                dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Ok", new DialogInterface.OnClickListener(){
+                dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Listar", new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Intent it = new Intent(getActivity(), ListActivity.class);
+                        startActivity(it);
+                    }
+                });
+                dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
                     }
                 });
                 dialog.show();
