@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ public class ListActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private List<Pessoa> myDataset;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +33,7 @@ public class ListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(myDataset, bd);
+        mAdapter = new MyAdapter(myDataset, bd, getContextList());
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -38,5 +41,9 @@ public class ListActivity extends AppCompatActivity {
     protected void onDestroy() {
         bd.close();
         super.onDestroy();
+    }
+
+    public Context getContextList(){
+        return this;
     }
 }

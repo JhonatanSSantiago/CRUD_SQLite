@@ -20,11 +20,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
     private List<Pessoa> mDataset;
     public BDsqlite bd;
 
+    public Context context;
+
+
+
+
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(List<Pessoa> myDataset, BDsqlite bd) {
+    public MyAdapter(List<Pessoa> myDataset, BDsqlite bd, Context context) {
         this.mDataset = myDataset;
         this.bd = bd;
+        this.context = context;
     }
+
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -38,6 +45,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
         public TextView idade;
         public Button editar;
         public Button excluir;
+
 
 
         public MyViewHolder(View itemView) {
@@ -58,7 +66,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_card, parent, false);
         MyViewHolder vh = new MyViewHolder(view);
+
         return vh;
+
+
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -71,10 +82,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
         holder.id.setText(String.valueOf(p.getId()));
         holder.nome.setText(p.getNome());
         holder.idade.setText(String.valueOf(p.getIdade()));
+
         holder.editar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Pessoa p = mDataset.get(position);
+                int id =  p.getId();
+                Intent it = new Intent(context, UpdateActivity.class);
+                it.putExtra("id", id);
+                it.putExtra("nome", p.getNome());
+                it.putExtra("idade", p.getIdade());
+                context.startActivity(it);
             }
         });
         holder.excluir.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +110,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
 
 
     }
+
+
 
 
 
