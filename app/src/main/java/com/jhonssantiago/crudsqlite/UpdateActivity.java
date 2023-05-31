@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +23,8 @@ public class UpdateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update);
+        getSupportActionBar().setDisplayHomeAsUpEnabled( true );
+        getSupportActionBar().setTitle("Atualizar Usuário");
 
         bd = new BDsqlite(this);
         Intent it = getIntent();
@@ -57,6 +60,19 @@ public class UpdateActivity extends AppCompatActivity {
     protected void onDestroy() {
         bd.close();
         super.onDestroy();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            //identificar a ação de voltar a tela
+            case android.R.id.home:
+                //encerra a activity
+                finish();
+                break;
+        }
+
+        return super.onOptionsItemSelected( item );
     }
 
     private Pessoa criaPessoa() {
